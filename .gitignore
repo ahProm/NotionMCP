@@ -33,6 +33,7 @@ ehthumbs.db
 Thumbs.db
 
 # Logs
+/ChatLog/
 logs
 *.log
 
