@@ -4,9 +4,9 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { notionClient, validateEnvironment } from '../config/notion.js';
-import { PagesHandler } from '../handlers/pages-handler.js';
-import { pagesTools } from '../tools/pages.js';
+import { notionClient, validateEnvironment } from '../config/notion';
+import { PagesHandler } from '../handlers/pages-handler';
+import { pagesTools } from '../tools/pages';
 
 // Validate environment
 validateEnvironment();
