@@ -43,20 +43,24 @@ jest.doMock('../../tools/pages', () => ({
 }));
 
 describe('Notion MCP Server', () => {
+  let initializeServer: () => any;
   beforeEach(() => {
+    jest.resetModules();
     jest.clearAllMocks();
     mockValidateEnvironment.mockImplementation(() => {});
+    // 再importでmockを有効化
+    ({ initializeServer } = require('../../server/notion-mcp-server'));
   });
 
   describe('Server Module Loading', () => {
     it('should load server module without errors', () => {
       expect(() => {
-        require('../../server/notion-mcp-server');
+        initializeServer();
       }).not.toThrow();
     });
 
     it('should validate environment when server is loaded', () => {
-      require('../../server/notion-mcp-server');
+      initializeServer();
       expect(mockValidateEnvironment).toHaveBeenCalled();
     });
   });
