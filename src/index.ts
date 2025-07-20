@@ -1,1 +1,1 @@
-import './server/notion-mcp-server.js'; 
+import './server/notion-mcp-server'; 

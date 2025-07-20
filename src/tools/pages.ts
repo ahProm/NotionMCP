@@ -10,7 +10,7 @@ export const pagesTools: Tool[] = [
       properties: {
         database_id: {
           type: 'string',
-          description: 'The ID of the database to list pages from',
+          description: 'The ID of the database to list pages from (if omitted, uses NOTION_DATABASE_ID from .env)',
         },
         filter: {
           type: 'object',
@@ -50,7 +50,7 @@ export const pagesTools: Tool[] = [
       properties: {
         parent: {
           type: 'object',
-          description: 'The parent object (database or page)',
+          description: 'The parent object (database or page). If parent.database_id is omitted, uses NOTION_DATABASE_ID from .env',
         },
         properties: {
           type: 'object',

@@ -9,6 +9,9 @@ export const notionClient = new NotionClient({
   auth: process.env.NOTION_API_KEY,
 });
 
+// Export Notion Database ID from environment
+export const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
+
 // Validate required environment variables
 export function validateEnvironment() {
   if (!process.env.NOTION_API_KEY) {
