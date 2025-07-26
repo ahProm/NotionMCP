@@ -9,11 +9,20 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 
 export function initializeServer() {
+  console.log('Initializing Notion MCP Server...');
+  
   // Validate environment
-  validateEnvironment();
+  try {
+    validateEnvironment();
+    console.log('Environment validation passed');
+  } catch (error) {
+    console.error('Environment validation failed:', error);
+    throw error;
+  }
 
   // Initialize handlers
   const pagesHandler = new PagesHandler(notionClient);
+  console.log('Pages handler initialized');
 
   // Create MCP server
   const server = new Server(
@@ -27,9 +36,12 @@ export function initializeServer() {
       },
     }
   );
+  console.log('MCP Server created');
 
   // Handle list tools request
   server.setRequestHandler(ListToolsRequestSchema, async () => {
+    console.log('List tools request received');
+    console.log('Available tools:', pagesTools.map(tool => tool.name));
     return {
       tools: pagesTools,
     };
@@ -38,6 +50,7 @@ export function initializeServer() {
   // Handle call tool request
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
+    console.log('Call tool request received:', name);
 
     try {
       switch (name) {
@@ -53,6 +66,7 @@ export function initializeServer() {
           throw new Error(`Unknown tool: ${name}`);
       }
     } catch (error) {
+      console.error('Tool execution error:', error);
       return {
         content: [
           {
@@ -65,15 +79,17 @@ export function initializeServer() {
     }
   });
 
+  console.log('Server initialization complete');
   return server;
 }
 
 export function main() {
+  console.log('Starting Notion MCP Server...');
   const server = initializeServer();
   // Start the server
   const transport = new StdioServerTransport();
   server.connect(transport);
-  console.log('Notion MCP Server started');
+  console.log('Notion MCP Server started and connected to transport');
 }
 
 if (require.main === module) {

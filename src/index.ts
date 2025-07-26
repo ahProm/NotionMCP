@@ -1,1 +1,4 @@
-import './server/notion-mcp-server'; 
+import { main } from './server/notion-mcp-server';
+
+// Start the server
+main(); 
